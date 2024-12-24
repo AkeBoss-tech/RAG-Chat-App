@@ -6,9 +6,9 @@ from sentence_transformers import CrossEncoder
 from huggingface_hub import InferenceClient
 import os
 from typing import List, Tuple
-from load_dotenv import load_dotenv
+""" from load_dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv() """
 
 system_prompt = """
 SYSTEM PROMPT:
