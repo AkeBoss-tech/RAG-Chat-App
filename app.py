@@ -9,9 +9,10 @@ from sentence_transformers import CrossEncoder
 from huggingface_hub import InferenceClient
 import os
 from typing import List, Tuple
-""" from load_dotenv import load_dotenv
 
-load_dotenv() """
+# from load_dotenv import load_dotenv
+
+# load_dotenv()
 
 system_prompt = """
 SYSTEM PROMPT:
@@ -177,12 +178,13 @@ def main():
             "sources": results
         })
 
+    # add an option to see the titles of the articles in the database
+    with st.expander("Titles in Database"):
+        for title in article_titles:
+            st.write(title) 
+
     # Display chat history
     if not st.session_state['chat_history']:
-        # add an option to see the titles of the articles in the database
-        with st.expander("Titles in Database"):
-            for title in article_titles:
-                st.write(title) 
         return
     
     later_chats = st.session_state['chat_history'][::-1]
