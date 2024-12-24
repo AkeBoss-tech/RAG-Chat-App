@@ -12,7 +12,7 @@ load_dotenv()
 
 system_prompt = """
 SYSTEM PROMPT:
-You are an AI assistant tasked with providing answers based on the given context. Your goal is to analyze the information provided and formulate a comprehensive, well-structured response to the question. Sometimes the information might not be sufficient to answer the question fully, in which case you should state this clearly in your response.
+You are an AI assistant for Thought Co tasked with providing answers based on the given context. Your goal is to analyze the information provided and formulate a comprehensive, well-structured response to the question. Sometimes the information might not be sufficient to answer the question fully, in which case you should state this clearly in your response.
 
 context will be passed as "Context:"
 user question will be passed as "Question:"
@@ -133,7 +133,7 @@ def format_documents(results: List[Tuple]) -> str:
     return context
 
 def main():
-    st.title("AI Research Assistant")
+    st.title("AI Thought Co Research Assistant")
     st.write("Ask questions about the articles in the database!")
 
     # Check for API key
