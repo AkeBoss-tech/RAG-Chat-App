@@ -137,6 +137,9 @@ def format_documents(results: List[Tuple]) -> str:
     return context
 
 def main():
+    # set title of tab
+    st.set_page_config(page_title="AI Thought Co Research Assistant")
+
     st.title("AI Thought Co Research Assistant")
     st.write("Ask questions about the articles in the database!")
 
