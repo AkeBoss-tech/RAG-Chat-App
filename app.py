@@ -64,6 +64,7 @@ class VectorDBQuery:
         if results['distances'][0]:
             max_distance = max(results['distances'][0])
             similarities = [100 * (1 - (dist / max_distance)) for dist in results['distances'][0]]
+            print(similarities)
         else:
             similarities = []
         
@@ -74,7 +75,7 @@ class VectorDBQuery:
         cross_scores = self.cross_encoder.predict(pairs)
         
         ranked_results = list(zip(cross_scores, metadatas, documents, similarities))
-        # ranked_results.sort(reverse=True)
+        ranked_results.sort(reverse=True)
         
         top_results = ranked_results[:n_rerank]
         
