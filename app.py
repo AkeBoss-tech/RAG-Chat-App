@@ -75,7 +75,7 @@ class VectorDBQuery:
         cross_scores = self.cross_encoder.predict(pairs)
         
         ranked_results = list(zip(cross_scores, metadatas, documents, similarities))
-        ranked_results.sort(reverse=True)
+        # ranked_results.sort(reverse=True)
         
         top_results = ranked_results[:n_rerank]
         
