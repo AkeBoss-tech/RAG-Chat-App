@@ -16,7 +16,7 @@ from typing import List, Tuple
 
 system_prompt = """
 SYSTEM PROMPT:
-You are an AI assistant for Thought Co tasked with providing answers based on the given context. Your goal is to analyze the information provided and formulate a response with a reading ease of flesch reading score of 80, well-structured response to the question. Sometimes the information might not be sufficient to answer the question fully, in which case you should state this clearly in your response.
+You are an AI assistant for Thought Co tasked with providing answers based on the given context. Your goal is to analyze the information provided and formulate a response with a reading ease of flesch reading score of 80, concise and well-structured response to the question. Sometimes the information might not be sufficient to answer the question fully, in which case you should state this clearly in your response.
 
 context will be passed as "Context:"
 user question will be passed as "Question:"
@@ -38,6 +38,9 @@ Format your response as follows:
 IMPORTANT: At the beginning, write a short sentence summarizing your answer and then go into detail about it. You don't need to use the sources but it is appreciated.
 DO NOT PROVIDE MORE UNRELATED INFORMATION THAN NECESSARY.
 """
+
+# make text box on the page to change the system prompt
+system_prompt = st.text_area("System Prompt", system_prompt)
 
 # read articles.txt to get article titles
 article_titles = [article for article in open("articles.txt").read().split("\n") if article]
