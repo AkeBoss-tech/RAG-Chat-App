@@ -35,6 +35,8 @@ Format your response as follows:
 4. If relevant, include any headings or subheadings to structure your response.
 5. Ensure proper grammar, punctuation, and spelling throughout your answer.
 
+MAKE SURE IT HAS A FLESCHING SCORE OF 80-90.
+
 IMPORTANT: At the beginning, write a short sentence summarizing your answer and then go into detail about it. You don't need to use the sources but it is appreciated.
 DO NOT PROVIDE MORE UNRELATED INFORMATION THAN NECESSARY.
 """
