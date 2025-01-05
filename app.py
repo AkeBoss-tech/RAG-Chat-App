@@ -85,7 +85,7 @@ class VectorDBQuery:
 class HuggingFaceHelper:
     def __init__(self):
         self.client = InferenceClient(api_key=os.getenv("HUGGINGFACE_API_KEY"))
-        self.model = "meta-llama/Meta-Llama-3-8B-Instruct"
+        self.model = "meta-llama/Meta-Llama-3-70B-Instruct"
 
     def generate_response(self, question: str, context: str, system_prompt: str) -> str:
         messages = [
@@ -147,6 +147,10 @@ def main():
 
     # Display system prompt editor
     system_prompt = st.text_area("System Prompt", system_prompt, height=100)
+    # Add an option to see article titles
+    with st.expander("📚 Titles in Database"):
+        for title in article_titles:
+            st.write(title)
 
     # Check for API key
     if not os.getenv("HUGGINGFACE_API_KEY"):
@@ -190,10 +194,7 @@ def main():
         else:
             st.chat_message("assistant").write(message["content"])
 
-    # Add an option to see article titles
-    with st.expander("📚 Titles in Database"):
-        for title in article_titles:
-            st.write(title)
+    
 
 if __name__ == "__main__":
     main()
