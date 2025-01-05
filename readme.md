@@ -1,5 +1,6 @@
 # RAG Chat App
 ![alt text](image.png)
+
 Talk to a chat bot with information from Thought Co. It uses a vector database to access article data as well as a cross encoder to rank relevance to questions. This data is then fed into a chat bot to allow users to talk to and about articles. 
 
 `scraper.py` is used to scrape the Thought Co website for articles and store them in a vector database. 
