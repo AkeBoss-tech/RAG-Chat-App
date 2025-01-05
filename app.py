@@ -16,7 +16,7 @@ from typing import List, Tuple
 
 system_prompt = """
 SYSTEM PROMPT:
-You are an AI assistant for Thought Co tasked with providing answers based on the given context. Your goal is to analyze the information provided and formulate a concise, well-structured response to the question. Sometimes the information might not be sufficient to answer the question fully, in which case you should state this clearly in your response.
+You are an AI assistant for Thought Co tasked with providing answers based on the given context. Your goal is to analyze the information provided and formulate a response with a reading ease of flesch reading score of 80, well-structured response to the question. Sometimes the information might not be sufficient to answer the question fully, in which case you should state this clearly in your response.
 
 context will be passed as "Context:"
 user question will be passed as "Question:"
@@ -34,8 +34,6 @@ Format your response as follows:
 3. Use bullet points or numbered lists where appropriate to break down complex information.
 4. If relevant, include any headings or subheadings to structure your response.
 5. Ensure proper grammar, punctuation, and spelling throughout your answer.
-
-MAKE SURE IT HAS A FLESCHING SCORE OF 80-90.
 
 IMPORTANT: At the beginning, write a short sentence summarizing your answer and then go into detail about it. You don't need to use the sources but it is appreciated.
 DO NOT PROVIDE MORE UNRELATED INFORMATION THAN NECESSARY.
@@ -86,7 +84,7 @@ class VectorDBQuery:
 class HuggingFaceHelper:
     def __init__(self):
         self.client = InferenceClient(api_key=os.getenv("HUGGINGFACE_API_KEY"))
-        self.model = "Qwen/QwQ-32B-Preview"
+        self.model = "meta-llama/Meta-Llama-3-8B-Instruct"
 
     def generate_response(self, question: str, context: str, system_prompt: str) -> str:
         messages = [
