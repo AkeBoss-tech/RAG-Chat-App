@@ -39,9 +39,6 @@ IMPORTANT: At the beginning, write a short sentence summarizing your answer and 
 DO NOT PROVIDE MORE UNRELATED INFORMATION THAN NECESSARY.
 """
 
-# make text box on the page to change the system prompt
-system_prompt = st.text_area("System Prompt", system_prompt)
-
 # read articles.txt to get article titles
 article_titles = [article for article in open("articles.txt").read().split("\n") if article]
 
@@ -141,11 +138,15 @@ def format_documents(results: List[Tuple]) -> str:
     return context
 
 def main():
+    global system_prompt
     # set title of tab
     st.set_page_config(page_title="AI Thought Co Research Assistant")
 
     st.title("AI Thought Co Research Assistant")
     st.write("Ask questions about the articles in the database!")
+    
+    # make text box on the page to change the system prompt
+    system_prompt = st.text_area("System Prompt", system_prompt)
 
     # Check for API key
     if not os.getenv("HUGGINGFACE_API_KEY"):
