@@ -1,4 +1,4 @@
-__import__('pysqlite3')
+__import__('sqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 import streamlit as st
@@ -140,14 +140,13 @@ def format_documents(results: List[Tuple]) -> str:
 
 def main():
     global system_prompt
-    # set title of tab
-    st.set_page_config(page_title="AI Thought Co Research Assistant")
+    st.set_page_config(page_title="AI Thought Co Chat Assistant")
 
-    st.title("AI Thought Co Research Assistant")
-    st.write("Ask questions about the articles in the database!")
-    
-    # make text box on the page to change the system prompt
-    system_prompt = st.text_area("System Prompt", system_prompt)
+    st.title("AI Thought Co Chat Assistant")
+    st.write("Chat with the AI assistant about articles in the database!")
+
+    # Display system prompt editor
+    system_prompt = st.text_area("System Prompt", system_prompt, height=100)
 
     # Check for API key
     if not os.getenv("HUGGINGFACE_API_KEY"):
@@ -162,53 +161,39 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state['chat_history'] = []
 
-    # Input for user question
-    user_question = st.text_input("Enter your question:")
+    # Chat message input
+    user_question = st.chat_input("Type your message and press Enter...")
     
     if user_question:
+        # Add user message to chat history
+        st.session_state['chat_history'].append({"role": "user", "content": user_question})
         with st.spinner("Searching relevant documents..."):
             # Search for relevant documents
             results = db_query.search_similar(user_question, n_results=10, n_rerank=3)
-            
-            # Format documents into context
             context = format_documents(results)
 
         # Generate LLM response with streaming
+        response_placeholder = st.chat_message("assistant").empty()
         llm_response = llm_helper.generate_response(
             question=user_question,
             context=context,
             system_prompt=system_prompt
         )
-        
-        # Add to chat history
-        st.session_state['chat_history'].append({
-            "question": user_question,
-            "answer": llm_response,
-            "sources": results
-        })
 
-    # add an option to see the titles of the articles in the database
-    with st.expander("Titles in Database"):
-        for title in article_titles:
-            st.write(title) 
+        # Add assistant response to chat history
+        st.session_state['chat_history'].append({"role": "assistant", "content": llm_response})
 
     # Display chat history
-    if not st.session_state['chat_history']:
-        return
-    
-    later_chats = st.session_state['chat_history'][::-1]
-    for chat in later_chats:
-        with st.container():
-            st.write("---")
-            st.write("🤔 Question:", chat["question"])
-            st.write("🤖 Answer:", chat["answer"])
-            
-            with st.expander("📚 View Sources"):
-                for metadata, document, similarity in chat["sources"]:
-                    st.markdown(f"**Title:** {metadata['title']}")
-                    st.markdown(f"**Relevance:** {similarity:.2f}%")
-                    st.markdown(f"**URL:** {metadata['url']}")
-                    st.write("---")
+    for message in st.session_state['chat_history']:
+        if message["role"] == "user":
+            st.chat_message("user").write(message["content"])
+        else:
+            st.chat_message("assistant").write(message["content"])
+
+    # Add an option to see article titles
+    with st.expander("📚 Titles in Database"):
+        for title in article_titles:
+            st.write(title)
 
 if __name__ == "__main__":
     main()
