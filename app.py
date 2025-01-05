@@ -71,15 +71,15 @@ class VectorDBQuery:
         metadatas = results['metadatas'][0]
         
         pairs = [[query_text, doc] for doc in documents]
-        # cross_scores = self.cross_encoder.predict(pairs)
+        cross_scores = self.cross_encoder.predict(pairs)
         
-        ranked_results = list(zip(similarities, metadatas, documents))
+        ranked_results = list(zip(cross_scores, metadatas, documents, similarities))
         ranked_results.sort(reverse=True)
         
         top_results = ranked_results[:n_rerank]
         
         return [(metadata, document, similarities) 
-                for document, similarities, metadata in top_results]
+                for score, metadata, document, similarities in top_results]
 
 class HuggingFaceHelper:
     def __init__(self):
