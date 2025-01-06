@@ -75,7 +75,7 @@ class VectorDBQuery:
         cross_scores = self.cross_encoder.predict(pairs)
         
         ranked_results = list(zip(cross_scores, metadatas, documents, similarities))
-        # ranked_results.sort(reverse=True)
+        ranked_results.sort(reverse=True)
         
         top_results = ranked_results[:n_rerank]
         
@@ -184,17 +184,30 @@ def main():
             system_prompt=system_prompt
         )
 
-        # Add assistant response to chat history
-        st.session_state['chat_history'].append({"role": "assistant", "content": llm_response})
+        # Add assistant response to chat history with sources
+        st.session_state['chat_history'].append({
+            "role": "assistant",
+            "content": llm_response,
+            "sources": results
+        })
 
     # Display chat history
     for message in st.session_state['chat_history']:
         if message["role"] == "user":
             st.chat_message("user").write(message["content"])
         else:
-            st.chat_message("assistant").write(message["content"])
+            # Display assistant response
+            assistant_message = st.chat_message("assistant")
+            assistant_message.write(message["content"])
 
-    
+            # Display sources in an expandable section
+            if "sources" in message:
+                with assistant_message.expander("📚 Sources"):
+                    for metadata, document, similarity in message["sources"]:
+                        st.markdown(f"**Title:** {metadata['title']}")
+                        st.markdown(f"**Relevance:** {similarity:.2f}%")
+                        st.markdown(f"**URL:** {metadata['url']}")
+                        st.write("---")
 
 if __name__ == "__main__":
     main()
