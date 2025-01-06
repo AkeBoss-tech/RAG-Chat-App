@@ -85,7 +85,7 @@ class VectorDBQuery:
 class HuggingFaceHelper:
     def __init__(self):
         self.client = InferenceClient(api_key=os.getenv("HUGGINGFACE_API_KEY"))
-        self.model = "meta-llama/Meta-Llama-3-70B-Instruct"
+        self.model = "meta-llama/Meta-Llama-3-8B-Instruct"
 
     def generate_response(self, question: str, context: str, system_prompt: str) -> str:
         messages = [
