@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "ChatBot Demo",
+    "version": "1.0",
+    "description": "A chatbot demo for Company XYZ.",
+    "permissions": ["storage", "activeTab", "scripting"],
+    "host_permissions": [
+      "https://www.thoughtco.com/*",
+      "http://127.0.0.1:5000/*"
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": "favicon-16x16.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://www.thoughtco.com/*"],
+        "js": ["content.js"],
+        "css": ["styles.css"]
+      }
+    ],
+    "icons": {
+      "16": "favicon-16x16.png"
+    }
+  }
+  
