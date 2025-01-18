@@ -211,5 +211,10 @@ def chat():
         } for metadata, document, similarity in results]
     })
 
+# add hello world route
+@app.route('/api/hello', methods=['GET'])
+def hello():
+    return jsonify({"message": "Hello, World!"})
+
 app = app.wsgi_app
 
