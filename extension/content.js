@@ -57,7 +57,7 @@ chatBox.innerHTML = `
         </div>
       </div>
       
-      <p style="margin: 15px 0; font-size: 14px;">Ask me anything about <span style="background: #0078d7; color: white; padding: 2px 8px; border-radius: 4px;">Your Product</span>.</p>
+      <p style="margin: 15px 0; font-size: 14px;">Ask me anything about <span style="background: #0078d7; color: white; padding: 2px 8px; border-radius: 4px;">ThoughtCo</span>.</p>
       
       <div style="margin: 20px 0;">
         <p style="color: #666; font-size: 12px; margin-bottom: 10px;">EXAMPLE QUESTIONS</p>
