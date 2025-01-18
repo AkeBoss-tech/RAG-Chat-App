@@ -12,13 +12,14 @@ from typing import List, Tuple
 from datetime import datetime, timedelta
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # Initialize local memory for conversation history
 user_sessions = {}
 
-from load_dotenv import load_dotenv
+""" from load_dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv() """
 
 system_prompt = """
 SYSTEM PROMPT:
@@ -145,6 +146,7 @@ def format_documents(results: List[Tuple]) -> str:
     return context
 
 app = Flask(__name__)
+CORS(app)
 
 def cleanup_sessions():
     """Remove sessions older than 1 hour."""
@@ -209,6 +211,5 @@ def chat():
         } for metadata, document, similarity in results]
     })
 
-if __name__ == "__main__":
-    app.run(debug=True)
+app = app.wsgi_app
 
